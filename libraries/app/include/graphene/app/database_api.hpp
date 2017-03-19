@@ -212,6 +212,19 @@ class database_api
 
       vector<vector<account_id_type>> get_key_references( vector<public_key_type> key )const;
 
+      //////////////////
+      // Informations //
+      //////////////////
+
+      /**
+       * @brief Get a list of informations( first name, last name, birthday ) by ID
+       * @param account_ids IDs of the accounts to retrieve
+       * @return The informations corresponding to the provided IDs
+       *
+       * This function has semantics identical to @ref get_objects
+       */
+      vector<optional<info_object>> get_info(const vector<account_id_type>& account_ids)const;
+
       //////////////
       // Accounts //
       //////////////
@@ -592,6 +605,9 @@ FC_API(graphene::app::database_api,
 
    // Keys
    (get_key_references)
+
+   //Informations
+   (get_info)
 
    // Accounts
    (get_accounts)

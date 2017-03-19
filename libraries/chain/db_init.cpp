@@ -258,6 +258,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
          n.active.weight_threshold = 1;
          n.name = "committee-account";
          n.statistics = create<account_statistics_object>( [&](account_statistics_object& s){ s.owner = n.id; }).id;
+         n.personal_data.birthday="1975-02-03";
+         n.personal_data.name="Jan Kowalski";
       });
    FC_ASSERT(committee_account.get_id() == GRAPHENE_COMMITTEE_ACCOUNT);
    FC_ASSERT(create<account_object>([this](account_object& a) {
@@ -269,6 +271,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
        a.membership_expiration_date = time_point_sec::maximum();
        a.network_fee_percentage = GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
        a.lifetime_referrer_fee_percentage = GRAPHENE_100_PERCENT - GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
+       a.personal_data.birthday="1976-03-04";
+       a.personal_data.name="Jan Nowak";
    }).get_id() == GRAPHENE_WITNESS_ACCOUNT);
    FC_ASSERT(create<account_object>([this](account_object& a) {
        a.name = "relaxed-committee-account";
@@ -279,6 +283,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
        a.membership_expiration_date = time_point_sec::maximum();
        a.network_fee_percentage = GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
        a.lifetime_referrer_fee_percentage = GRAPHENE_100_PERCENT - GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
+       a.personal_data.birthday="1980-02-05";
+       a.personal_data.name="Stefan Plefan";
    }).get_id() == GRAPHENE_RELAXED_COMMITTEE_ACCOUNT);
    FC_ASSERT(create<account_object>([this](account_object& a) {
        a.name = "null-account";
@@ -289,6 +295,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
        a.membership_expiration_date = time_point_sec::maximum();
        a.network_fee_percentage = 0;
        a.lifetime_referrer_fee_percentage = GRAPHENE_100_PERCENT;
+       a.personal_data.birthday="1980-07-06";
+       a.personal_data.name="Anna Drewniak";
    }).get_id() == GRAPHENE_NULL_ACCOUNT);
    FC_ASSERT(create<account_object>([this](account_object& a) {
        a.name = "temp-account";
@@ -299,6 +307,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
        a.membership_expiration_date = time_point_sec::maximum();
        a.network_fee_percentage = GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
        a.lifetime_referrer_fee_percentage = GRAPHENE_100_PERCENT - GRAPHENE_DEFAULT_NETWORK_PERCENT_OF_FEE;
+       a.personal_data.birthday="1981-08-07";
+       a.personal_data.name="Klaudia Nowakowska";
    }).get_id() == GRAPHENE_TEMP_ACCOUNT);
    FC_ASSERT(create<account_object>([this](account_object& a) {
        a.name = "proxy-to-self";
@@ -309,6 +319,8 @@ void database::init_genesis(const genesis_state_type& genesis_state)
        a.membership_expiration_date = time_point_sec::maximum();
        a.network_fee_percentage = 0;
        a.lifetime_referrer_fee_percentage = GRAPHENE_100_PERCENT;
+       a.personal_data.birthday="1982-09-08";
+       a.personal_data.name="Adam Zielony";
    }).get_id() == GRAPHENE_PROXY_TO_SELF_ACCOUNT);
 
    // Create more special accounts

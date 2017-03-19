@@ -109,6 +109,25 @@ namespace graphene { namespace chain {
          void  adjust_balance(const asset& delta);
    };
 
+   /**
+    * @brief This class represents personal information used in an account.
+    * @ingroup object
+    * @ingroup protocol
+    *
+    * Object of such class is used in 'get_info' call.
+    */
+   class info_object
+   {
+        public:
+            string birthday;
+            string name;
+
+        info_object()
+        {
+            birthday="2000-01-01";
+            name="undefined";
+        }
+   };
 
    /**
     * @brief This class represents an account on the object graph
@@ -260,6 +279,8 @@ namespace graphene { namespace chain {
          }
 
          account_id_type get_id()const { return id; }
+
+        info_object personal_data;
    };
 
    /**
@@ -365,6 +386,11 @@ namespace graphene { namespace chain {
    typedef generic_index<account_object, account_multi_index_type> account_index;
 
 }}
+
+FC_REFLECT( graphene::chain::info_object,
+            (birthday)
+            (name)
+            )
 
 FC_REFLECT_DERIVED( graphene::chain::account_object,
                     (graphene::db::object),

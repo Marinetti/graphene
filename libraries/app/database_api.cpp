@@ -76,6 +76,9 @@ class database_api_impl : public std::enable_shared_from_this<database_api_impl>
       // Keys
       vector<vector<account_id_type>> get_key_references( vector<public_key_type> key )const;
 
+      // Info
+      vector<optional<info_object>> get_info(const vector<account_id_type>& account_ids)const;
+
       // Accounts
       vector<optional<account_object>> get_accounts(const vector<account_id_type>& account_ids)const;
       std::map<string,full_account> get_full_accounts( const vector<string>& names_or_ids, bool subscribe );
@@ -487,6 +490,35 @@ vector<vector<account_id_type>> database_api_impl::get_key_references( vector<pu
       subscribe_to_item(i);
 
    return final_result;
+}
+
+//////////////////////////////////////////////////////////////////////
+//                                                                  //
+// Info                                                             //
+//                                                                  //
+//////////////////////////////////////////////////////////////////////
+
+vector<optional<info_object>> database_api::get_info(const vector<account_id_type>& account_ids)const
+{
+   return my->get_info( account_ids );
+}
+
+vector<optional<info_object>> database_api_impl::get_info(const vector<account_id_type>& account_ids)const
+{
+   vector<optional<info_object>> result;
+
+   result.reserve(account_ids.size());
+
+   std::transform(account_ids.begin(), account_ids.end(), std::back_inserter(result),
+                  [this](account_id_type id) -> optional<info_object> {
+      if(auto o = _db.find(id))
+      {
+         subscribe_to_item( id );
+         return o->personal_data;
+      }
+      return {};
+   });
+   return result;
 }
 
 //////////////////////////////////////////////////////////////////////
